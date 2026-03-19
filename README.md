@@ -1,16 +1,61 @@
-# React + Vite
+# 🏠 3D Room Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Preview](./preview.gif)
 
-Currently, two official plugins are available:
+✨ An interactive **3D room portfolio** with smooth transitions, cozy vibes, and immersive navigation.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🌐 Live Demo
+🚀 https://3d-room-portfolio-rho.vercel.app/
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+> Experience the project directly in your browser (desktop recommended for full interaction) :contentReference[oaicite:0]{index=0}
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🚀 Features
+- 🎮 Interactive 3D environment  
+- 🖱️ Smooth camera controls  
+- 🎨 Minimal & cozy design  
+- ⚡ Optimized performance  
+- 🌐 Runs in the browser  
+
+---
+
+## 🧭 Controls
+- 🖱️ Left / Right Click → rotate & interact  
+- 🔄 Mouse Wheel → zoom in/out  
+
+---
+
+## 🛠️ Built With
+- ⚛️ React  
+- 🧊 React Three Fiber  
+- 🎨 Blender  
+- 💡 Three.js  
+
+---
+
+## 📚 Inspiration
+🌸 https://www.sooahs-room-folio.com/
+
+---
+
+## 🎓 Courses & Resources
+🧊 Blender Course  
+https://youtu.be/e-fetDXDXX8  
+
+🏠 Similar Project Course  
+https://www.youtube.com/watch?v=tdsQwuyS6DQ&t=11782s  
+
+⚛️ React Three Fiber Course  
+https://www.youtube.com/watch?v=XBcnD7WRYkY&list=PLjcjAqAnHd1HJWUD9b7L1xzIqFiIj_pIK  
+
+---
+
+## ⚙️ Installation
+```bash
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+npm install
+npm run dev
