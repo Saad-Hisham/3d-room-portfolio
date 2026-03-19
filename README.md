@@ -48,7 +48,6 @@ https://www.youtube.com/watch?v=XBcnD7WRYkY&list=PLjcjAqAnHd1HJWUD9b7L1xzIqFiIj_
 
 ## ⚙️ Installation
 ```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone https://github.com/Saad-Hisham/3d-room-portfolio
 npm install
 npm run dev
