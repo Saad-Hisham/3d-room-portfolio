@@ -185,20 +185,89 @@ const Room = ({ onOpenMobilePopup, startIntroAnimation = false, ...props }) => {
 
     hasPlayedIntroRef.current = true
     const objectsToAnimate = []
+    const priorityNames = [
+      "Cube021",
+      "Cube013",
+      "Cube001",
+      "right_side_border003",
+      "topedge",
+      "side_edge",
+      "side_edge",
+      "Cube013",
+      "Cube026",
+      "right_side_border",
+      "Cylinder015",
+      "Cube014",
+      "Cube015"
+    ]
 
-    group.current.traverse((child) => {
-      if (child === group.current || !child?.isObject3D || !child?.scale) return
+    const scene = group.current.getObjectByName("Scene") || group.current
+    const candidates = []
 
+    // Collect top-level candidates to handle groups together
+    scene.children.forEach((child) => {
+      if (!child?.isObject3D || !child?.scale) return
+      candidates.push(child)
+    })
+
+    // Also include other direct children of the root group (like HoverTransforms)
+    if (scene !== group.current) {
+      group.current.children.forEach((child) => {
+        if (child !== scene && child?.isObject3D && child?.scale) {
+          candidates.push(child)
+        }
+      })
+    }
+
+    // Set initial scales and store targets
+    candidates.forEach((child) => {
       const targetScale = {
         x: child.scale.x || 0.001,
         y: child.scale.y || 0.001,
         z: child.scale.z || 0.001
       }
-
       child.userData.__introTargetScale = targetScale
       child.scale.set(0.001, 0.001, 0.001)
-      objectsToAnimate.push(child)
     })
+
+    // Sort according to requested order
+    const remainingCandidates = [...candidates]
+
+    // 1. Priority names
+    priorityNames.forEach((name) => {
+      const index = remainingCandidates.findIndex((c) => c.name === name)
+      if (index !== -1) {
+        objectsToAnimate.push(remainingCandidates[index])
+        remainingCandidates.splice(index, 1)
+      }
+    })
+
+    // 2. Large objects (Room first, then others by scale)
+    const roomIndex = remainingCandidates.findIndex((c) => c.name === "Room")
+    if (roomIndex !== -1) {
+      objectsToAnimate.push(remainingCandidates[roomIndex])
+      remainingCandidates.splice(roomIndex, 1)
+    }
+
+    remainingCandidates.sort((a, b) => {
+      const sa = a.userData.__introTargetScale
+      const sb = b.userData.__introTargetScale
+      const volA = Math.abs(sa.x * sa.y * sa.z)
+      const volB = Math.abs(sb.x * sb.y * sb.z)
+      return volB - volA
+    })
+
+    const largeThreshold = 5
+    const largeObjects = remainingCandidates.filter((c) => {
+      const s = c.userData.__introTargetScale
+      return Math.abs(s.x + s.y + s.z) > largeThreshold
+    })
+    const rest = remainingCandidates.filter((c) => {
+      const s = c.userData.__introTargetScale
+      return Math.abs(s.x + s.y + s.z) <= largeThreshold
+    })
+
+    objectsToAnimate.push(...largeObjects, ...rest)
 
     const maxTotalDuration = 10
     const itemCount = Math.max(objectsToAnimate.length, 1)
@@ -3333,20 +3402,9 @@ const Room = ({ onOpenMobilePopup, startIntroAnimation = false, ...props }) => {
             position={[7.02, 3.927, 3.597]}
             rotation={[Math.PI / 2, 0, 0]}
             scale={[1.375, 1.473, 0.437]}
-            onClick={() =>
-              handleSectionClick("works", () => {
-                setIsWorksMode(true)
-                setIsAnimating(true)
-                animateCameraTo(
-                  { x: 0.465, y: 4.505, z: 0.069 },
-                  { x: 0.465, y: 4.523, z: -0.029 },
-                  { x: -2.960, y: 0.000, z: -3.142 },
-                  2,
-                  "power2.inOut",
-                  () => setIsAnimating(false)
-                )
-              })
-            }
+            onClick={() => {
+              onOpenMobilePopup?.("works")
+            }}
           />
 
 

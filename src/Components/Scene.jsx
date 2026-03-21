@@ -32,7 +32,7 @@ function Scene({ hasEntered }) {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    const roomScale = windowWidth <= 768 ? 0.5 : windowWidth <= 1024 ? 0.6 : windowWidth <= 1350 ? 0.8 : 1;
+    const roomScale = windowWidth <= 768 ? 0.4 : windowWidth <= 1024 ? 0.6 : windowWidth <= 1350 ? 0.8 : 1;
     const isSmallScreen = windowWidth <= 900;
 
     const handleDownloadClick = () => {
@@ -121,19 +121,10 @@ function Scene({ hasEntered }) {
 
                         const distance = c.position.distanceTo(t); {/* this is the real "zoom" value */ }
 
-                        console.log("=== ORBIT CHANGE ===");
-                        console.log("TARGET:", [t.x.toFixed(3), t.y.toFixed(3), t.z.toFixed(3)]);
-                        console.log("CAMERA POSITION:", [c.position.x.toFixed(3), c.position.y.toFixed(3), c.position.z.toFixed(3)]);
-                        console.log("CAMERA ROTATION (radians):", [
-                            c.rotation.x.toFixed(3),
-                            c.rotation.y.toFixed(3),
-                            c.rotation.z.toFixed(3)
-                        ]);
-                        console.log("ZOOM DISTANCE:", distance.toFixed(3));
                     }}
                 />
             </Canvas>
-            {isSmallScreen && mobilePopup && (
+            {mobilePopup && (
                 <div
                     style={{
                         position: "fixed",
@@ -150,7 +141,7 @@ function Scene({ hasEntered }) {
                 >
                     <div
                         style={{
-                            width: "min(92vw, 560px)",
+                            width: "90vw",
                             maxHeight: "84vh",
                             overflowY: "auto",
                             borderRadius: "18px",
@@ -224,7 +215,7 @@ function Scene({ hasEntered }) {
                                         <img
                                             src={worksPreviewImages[projectIndex]}
                                             alt={title}
-                                            style={{ width: "100%", display: "block", aspectRatio: "16/9", objectFit: "cover" }}
+                                            style={{ width: "100%", display: "block", aspectRatio: "16/9", objectFit: "contain" }}
                                         />
                                         <div style={{ padding: "0.8rem" }}>
                                             <p style={{ color: "#fff", margin: "0 0 0.65rem", fontWeight: 600 }}>{title}</p>
