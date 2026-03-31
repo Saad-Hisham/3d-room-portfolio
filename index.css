@@ -1,0 +1,201 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+canvas {
+    height: 100vh !important;
+}
+
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+    z-index: 1000;
+    transition: opacity 0.5s ease;
+    animation-play-state: running;
+}
+
+.loader-container.fade-out {
+    opacity: 0;
+    pointer-events: none;
+    animation-play-state: running;
+}
+
+.loader-sprite {
+    width: 200px;
+    height: 200px;
+    background-image: url('/loading.png');
+    background-size: 300% 324%;
+    image-rendering: pixelated;
+    animation: loader-anim 1.5s steps(1) infinite;
+    will-change: background-position;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    transform: translateZ(0) translate3d(0, 0, 0);
+    filter: blur(0);
+}
+
+@keyframes loader-anim {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    11.11% {
+        background-position: 50% 0%;
+    }
+
+    22.22% {
+        background-position: 100% 0%;
+    }
+
+    33.33% {
+        background-position: 0% 50%;
+    }
+
+    44.44% {
+        background-position: 50% 50%;
+    }
+
+    55.55% {
+        background-position: 100% 50%;
+    }
+
+    66.66% {
+        background-position: 0% 100%;
+    }
+
+    77.77% {
+        background-position: 50% 100%;
+    }
+
+    88.88% {
+        background-position: 100% 100%;
+    }
+
+    100% {
+        background-position: 100% 100%;
+    }
+}
+
+.loading-word {
+    color: white;
+    font-family: "Pixelify Sans", sans-serif;
+    position: absolute;
+    top: 65vh;
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.basic-loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #1a1a1a;
+    z-index: 2000;
+    transition: opacity 0.3s ease;
+}
+
+.basic-loader-content {
+    text-align: center;
+    color: #ffffff;
+}
+
+.basic-loader-bar-container {
+    width: 200px;
+    height: 4px;
+    background: #333;
+    border-radius: 2px;
+    margin: 20px auto;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.basic-loader-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #6e2a9b, #d93f77);
+    width: 100%;
+    box-shadow: 0 0 10px rgba(110, 42, 155, 0.5);
+}
+
+.basic-loader-text {
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 1.2rem;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.8;
+}
+
+.loader-instructions {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.loader-instructions p {
+    color: #ffffff;
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 1.9rem;
+    margin: 5px 0;
+    opacity: 0.9;
+}
+
+.enter-button {
+    margin-top: 15px;
+    padding: 12px 30px;
+    background: linear-gradient(135deg, #6e2a9b, #d93f77);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(110, 42, 155, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.enter-button:hover {
+    background: linear-gradient(135deg, #7a30b0, #e54480);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(110, 42, 155, 0.6);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.enter-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(110, 42, 155, 0.4);
+}
+
+.music-control-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    transform: none !important;
+    pointer-events: none;
+    z-index: 30;
+}
+
+.music-control-overlay .music-control-button {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    pointer-events: auto;
+}
