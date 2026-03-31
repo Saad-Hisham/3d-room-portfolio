@@ -16,8 +16,7 @@ canvas {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #6e2a9b;
-    background: radial-gradient(circle, rgba(110, 42, 155, 1) 0%, rgba(217, 63, 119, 1) 100%, rgba(237, 221, 83, 1) 100%);
+   
     z-index: 1000;
     transition: opacity 0.5s ease;
     animation-play-state: running;

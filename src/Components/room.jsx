@@ -7,7 +7,7 @@ import { useTexture } from '@react-three/drei'
 import gsap from 'gsap'
 import { EffectComposer, Bloom } from "@react-three/postprocessing"
 import * as THREE from 'three'
-const Room = ({ onOpenMobilePopup, startIntroAnimation = false, ...props }) => {
+const Room = ({ onOpenMobilePopup, startIntroAnimation = false, scale = 1, ...props }) => {
 
 
 
@@ -129,18 +129,18 @@ const Room = ({ onOpenMobilePopup, startIntroAnimation = false, ...props }) => {
   ) => {
     if (controls) {
       gsap.to(controls.target, {
-        x: targetPosition.x,
-        y: targetPosition.y,
-        z: targetPosition.z,
+        x: targetPosition.x * scale,
+        y: targetPosition.y * scale,
+        z: targetPosition.z * scale,
         duration,
         ease,
       });
     }
 
     gsap.to(camera.position, {
-      x: cameraPosition.x,
-      y: cameraPosition.y,
-      z: cameraPosition.z,
+      x: cameraPosition.x * scale,
+      y: cameraPosition.y * scale,
+      z: cameraPosition.z * scale,
       duration,
       ease,
       onUpdate: () => {
@@ -448,7 +448,7 @@ const Room = ({ onOpenMobilePopup, startIntroAnimation = false, ...props }) => {
   }
   return (
     <>
-      <group ref={group} {...props} dispose={null}>
+      <group ref={group} scale={scale} {...props} dispose={null}>
       <group name="Scene">
 
         <mesh
@@ -3402,9 +3402,11 @@ const Room = ({ onOpenMobilePopup, startIntroAnimation = false, ...props }) => {
             position={[7.02, 3.927, 3.597]}
             rotation={[Math.PI / 2, 0, 0]}
             scale={[1.375, 1.473, 0.437]}
-            onClick={() => {
-              onOpenMobilePopup?.("works")
-            }}
+            onClick={() =>
+              handleSectionClick("works", () =>
+                onOpenMobilePopup?.("works")
+              )
+            }
           />
 
 

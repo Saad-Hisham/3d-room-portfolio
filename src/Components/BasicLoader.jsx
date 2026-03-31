@@ -4,10 +4,24 @@ import { useProgress } from "@react-three/drei";
 const BasicLoader = ({ onEnter }) => {
     const { progress } = useProgress();
     const [show, setShow] = useState(true);
+    const [isTouch, setIsTouch] = useState(false);
 
     useEffect(() => {
- 
-    }, [progress]);
+        const checkTouch = () => {
+            setIsTouch(
+                "ontouchstart" in window ||
+                navigator.maxTouchPoints > 0 ||
+                navigator.msMaxTouchPoints > 0
+            );
+        };
+
+        checkTouch();
+        window.addEventListener("resize", checkTouch);
+
+        return () => {
+            window.removeEventListener("resize", checkTouch);
+        };
+    }, []);
 
     if (!show) return null;
 
@@ -29,7 +43,11 @@ const BasicLoader = ({ onEnter }) => {
                 )}
                 {progress === 100 && (
                     <div className="loader-instructions">
-                        <p>Navigate with left 🖱️💙 & right 🖱️❤️ clicks and the scroll wheel 🔄</p>
+                        <p>
+                            {isTouch
+                                ? "Navigate with one or two fingers and use pinch/drag gestures on touch screens."
+                                : "Navigate with left 🖱️💙 & right 🖱️❤️ clicks and the scroll wheel 🔄"}
+                        </p>
                         <p>Enjoy 😊</p>
                         <button
                             className="enter-button"

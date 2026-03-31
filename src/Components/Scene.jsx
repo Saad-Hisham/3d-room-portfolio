@@ -1,10 +1,11 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import Room from "./room";
+import Boy from "./Boy";
+import Demo from "./Demo";
 import { Environment } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import * as THREE from "three";
-import { useControls } from "leva";
 import { useEffect, useState } from "react";
 
 function Scene({ hasEntered }) {
@@ -33,7 +34,10 @@ function Scene({ hasEntered }) {
     }, []);
 
     const roomScale = windowWidth <= 768 ? 0.4 : windowWidth <= 1024 ? 0.6 : windowWidth <= 1350 ? 0.8 : 1;
-    const isSmallScreen = windowWidth <= 900;
+    const cameraPosition = [20, 5, -13];
+    const controlsTarget = [0, 4 * roomScale, 0];
+    const maxDistance = 35;
+    const minDistance = 0.1;
 
     const handleDownloadClick = () => {
         const link = document.createElement("a");
@@ -47,11 +51,12 @@ function Scene({ hasEntered }) {
     return (
         <div id="canvas-container">
             <Canvas
+           style={{ background: '#531daf' }}
                 camera={{
                     fov: 32,
                     near: 0.1,
                     far: 1000,
-                    position: [20, 5, -13],
+                    position: cameraPosition,
                     rotation: [10, 0, 0]
                 }}
                 gl={{
@@ -61,8 +66,7 @@ function Scene({ hasEntered }) {
                     toneMappingExposure: 1.5
                 }}
             >
-                <color attach="background" args={["#220258"]} />
-                <PerspectiveCamera makeDefault fov={32} near={0.1} far={1000} position={[20, 5, -13]} rotation={[10, 0, 0]} />
+                <PerspectiveCamera makeDefault fov={32} near={0.1} far={1000} position={cameraPosition} rotation={[10, 0, 0]} />
 
                 <EffectComposer>
                     <Bloom
@@ -78,7 +82,7 @@ function Scene({ hasEntered }) {
                 <ambientLight intensity={0.2} />
 
                 <directionalLight
-                    position={[5, 8, 5]}
+                    position={[5 * roomScale, 8 * roomScale, 5 * roomScale]}
                     intensity={1.5}
                     castShadow
                     shadow-mapSize-width={2048}
@@ -86,22 +90,18 @@ function Scene({ hasEntered }) {
                 />
 
                 <pointLight
-                    position={[-4, 3, -4]}
+                    position={[-4 * roomScale, 3 * roomScale, -4 * roomScale]}
                     intensity={1}
                     color="#ff00aa"
                 />
 
                 <Environment preset="city" />
-                <Room
-                    scale={[roomScale, roomScale, roomScale]}
-                    onOpenMobilePopup={setMobilePopup}
-                    startIntroAnimation={hasEntered}
-                />
+                <Room scale={roomScale} onOpenMobilePopup={setMobilePopup} />
 
                 <OrbitControls
                 zoomSpeed={5}
                     makeDefault
-                    target={[0, 4, 0]}
+                    target={controlsTarget}
                     enablePan={true}
                     enableZoom={true}
                     enableRotate={true}
@@ -111,15 +111,14 @@ function Scene({ hasEntered }) {
 
                     minAzimuthAngle={-Math.PI / -4}
                     maxAzimuthAngle={Math.PI / 1}
-                    minDistance={.1}
-                    maxDistance={25}
+                    minDistance={minDistance}
+                    maxDistance={maxDistance}
                     onEnd={(e) => {
                         {/* ← changed to onChange so you see values WHILE moving/zooming */ }
                         const controls = e.target;
                         const t = controls.target;
                         const c = controls.object; {/* this is your camera */ }
 
-                        const distance = c.position.distanceTo(t); {/* this is the real "zoom" value */ }
 
                     }}
                 />
